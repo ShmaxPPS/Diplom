@@ -1,17 +1,75 @@
-\documentclass[a4paper,10pt]{article}
+\documentclass[a4paper]{article}
+\usepackage[14pt]{extsizes}
 \usepackage[utf8]{inputenc}
 \usepackage[T2A]{fontenc}
-\usepackage[english,russian]{babel}
+\usepackage[russian]{babel}
+\usepackage{setspace,amsmath}
+\usepackage{tocloft}
+\usepackage[left=30mm, top=20mm, right=20mm, bottom=20mm, nohead, footskip=10mm]{geometry}
 
-%opening
-\title{}
-\author{Максим Попов}
+\onehalfspacing
+
+\makeatletter
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
 
 \begin{document}
-    
-\maketitle
+\begin{titlepage}
+	\begin{center}
+		\hfill \break
+		\large{Министерство образования и науки Российской Федерации}\\
+		\hfill \break
+		\normalsize{Государственное образовательное учреждение}\\ 
+		\normalsize{высшего профессионального образования}\\
+		\normalsize{«Московский физико-технический институт (государственный университет)»}\\
+		\normalsize{Факультет инноваций и высоких технологий}\\
+		\normalsize{Кафедра анализа данных}\\
+		\hfill \break
+		\hfill \break
+		\hfill \break
+		\Large{\textbf{Магистерская диссертация}}\\
+		\hfill \break
+		\large{Тема: \textbf{Название моей работы (TODO)}}\\
+	\end{center}
 
-\section{}
-Раз два три четыре пять с детства с рифмой я дружу
-		
+	\begin{flushright}
+		\hfill \break
+		Направление:  010400\\
+		Прикладные математика и информатика\\
+		\hfill \break
+		\hfill \break
+		\hfill \break
+	\end{flushright}
+	
+	\begin{flushright}
+		\normalsize{
+			\begin{tabular}{rcr}
+				Выполнил:\ \\ студент 093 группы & \underline{\hspace{3cm}} & Попов М.В. \\\\
+				Научный руководитель:\ \\ д.физ.-мат.н., проф.(todo) & \underline{\hspace{3cm}}& Ромащенко А.Е. \\\\
+			\end{tabular}
+		}
+	\end{flushright}
+
+	\begin{center}
+		\hfill \break
+	\end{center}
+
+	\begin{center} г. Москва 2016 \end{center}
+	\thispagestyle{empty}
+\end{titlepage}
+ 
+\newpage
+\tableofcontents
+
+\newpage
+ 
+\newpage
+\section{Введение}
+\subsection{Подсекция}
+\subsection{Подсекция}
+
+\section{Секция}
+\subsection{Подсекция}
+\subsection{Подсекция}
+ 
+ 
 \end{document}
