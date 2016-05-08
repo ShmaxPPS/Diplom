@@ -10,8 +10,11 @@
 \usepackage{mathenv}
 \usepackage{tocloft}
 \usepackage{enumitem}
+\usepackage{array}
+\usepackage{lipsum}
 \usepackage[indentfirst]{titlesec}
 \usepackage[left=30mm, top=20mm, right=20mm, bottom=20mm, nohead, footskip=10mm]{geometry}
+
 
 \onehalfspacing
 
@@ -456,10 +459,10 @@ $(x, y) \in X\times Y$ имеет цвет $z \in Z$, если $f(x, y) = z$.
      \item[--] Метод Куликова-Юкны:
      
      Так как $\Gamma$ имеет параметры $(p_{\gamma}, l_{\pi})$, то каждая вершина графа $G_{1,\Gamma}$ 
-     соединена с $\gamma (\pi - 1)$ другими, а значит всего ребер $\gamma (\pi - 1) p$. Тогда в графе 
-     $G_{n, \Gamma}$ всего ребер $\gamma^n (\pi - 1)^n p^n$. Так как у нас однородный двудольный граф, 
+     соединена с $\gamma\cdot (\pi - 1)$ другими, а значит всего ребер $\gamma\cdot (\pi - 1)\cdot p$. Тогда в графе 
+     $G_{n, \Gamma}$ всего ребер $\gamma^n\cdot (\pi - 1)^n\cdot p^n$. Так как у нас однородный двудольный граф, 
      то у нас имеется совершенное паросочетание, а значит $v(G_{n, \Gamma}) = p^n$. В итоге получаем оченку:
-     $$bcc(G_{n,\Gamma}) \geq \frac{p^{2n}}{\gamma^n (\pi - 1)^n p^n} = \left(\frac{p}{\gamma (\pi -1)}\right)^n$$
+     $$bcc(G_{n,\Gamma}) \geq \frac{p^{2n}}{\gamma^n\cdot (\pi - 1)^n\cdot p^n} = \left(\frac{p}{\gamma\cdot (\pi -1)}\right)^n$$
      
      \item[--] Метод энтропийных неравенств:
      
@@ -471,14 +474,129 @@ $(x, y) \in X\times Y$ имеет цвет $z \in Z$, если $f(x, y) = z$.
      для любого $i$ точки $x_i,\ y'_i,\ x'_i,\ y_i$ лежат на одной прямой (некоторые точки могут совпадать), 
      но тогда очевидно, что ребро $(x, y)$ такого же цвета. 
      
-     Пусть на ребрах графа задано равномерное распределение, тогда $H(A) = \log_2l^n = n\log_2l$ и 
-     $H(A|X)=H(A|Y) = \log_2\gamma^n = n\log_2\gamma$. В итоге получаем оценку: $$bcc(G_{n, \Gamma}) \geq 
-     2^{n\log_2\gamma - \frac{1}{2}n\log_2l} = \left(\frac{\gamma}{\sqrt{l}}\right)^n$$
+     Пусть на ребрах графа задано равномерное распределение, тогда $H(A) = \log_2l^n = n\cdot\log_2l$ и 
+     $H(A|X)=H(A|Y) = \log_2\gamma^n = n\cdot\log_2\gamma$. В итоге получаем оценку: $$bcc(G_{n, \Gamma}) \geq 
+     2^{n\cdot\log_2\gamma - \frac{n}{2}\cdot\log_2l} = \left(\frac{\gamma}{\sqrt{l}}\right)^n$$
      
 \end{itemize}
 
-
 \subsection{Сравнение методов оценивания}
+
+Рассмотрим какие оценки получаются на известных геометрических конфигурациях. Симметричные конфигурации ($p = l$ и 
+$\gamma = \pi$) будем обозначать сокращенно $(p_{\gamma})$.
+\newpage
+
+\begin{table}[h]
+	\begin{tabular}{|>\centering m{4cm}|c|c|c|c|}
+		\hline
+		Название & FS & KJ & EI & Результат \\ \hline
+		Треугольник\newline$\left(3_2\right)$ & $\geq 3^n$ & $\left(\frac{3}{2}\right)^n$ & $\left(\frac{2}{\sqrt{3}}\right)^n$ & $FS > KJ > EI$ \\ \hline
+		Полный четырехсторонник\newline$\left(4_3,\ 6_2\right)$ & $\geq 3^n$ & $\left(\frac{4}{3}\right)^n$ & $\left(\frac{3}{\sqrt{6}}\right)^n$ & $FS > KJ > EI$ \\ \hline
+		$K_m$ при $m>4$\newline$\left(m_{m-1},\ \binom{m}{2}_2\right)$ & $\geq 3^n$ & $\left(\frac{m}{m-1}\right)^n$ & $\left(\sqrt{\frac{2(m-1)}{m}}\right)^n$ & $FS > EI > KJ$ \\ \hline
+		$K_{m, m}$ при $m>0$\newline$\left(2m_m,\ m^2_2\right)$ & $\geq 2^n$ & $2^n$ & $1^n$ & $FS = KJ > EI$ \\ \hline
+		Плоскость Фано\newline$\left(7_3\right)$  & $\geq 3^n$ & $\left(\frac{7}{6}\right)^n$ & $\left(\frac{3}{\sqrt{7}}\right)^n$ & $FS > KJ > EI$ \\ \hline
+		Конфигурация Мёбиуса-Кантора\newline$\left(8_3\right)$  & $\geq 3^n$ & $\left(\frac{4}{3}\right)^n$ & $\left(\frac{3}{\sqrt{8}}\right)^n$ & $FS > KJ > EI$ \\ \hline
+		Конфигурация Дезарга $\left(10_3\right)$  & $\geq 3^n$ & $\left(\frac{5}{3}\right)^n$ & $\left(\frac{3}{\sqrt{10}}\right)^n$ & $FS > KJ > EI$ \\ \hline
+		Конфигурация Гессе $\left(9_4,\ 12_3\right)$  & $\geq 3^n$ & $\left(\frac{9}{8}\right)^n$ & $\left(\frac{2}{\sqrt{3}}\right)^n$ & $FS > EI > KJ$ \\ \hline
+		Конфигурация Шлефли $\left(12_5,\ 30_2\right)$  & $\geq 3^n$ & $\left(\frac{12}{5}\right)^n$ & $\left(\frac{5}{\sqrt{30}}\right)^n$ & $FS > KJ > EI$ \\ \hline
+		Проективная плоскость $\left((m^2 + m + 1)_{m+1}\right)$  & $\geq 3^n$ & $\left(\frac{m^2+m+1}{m(m+1)}\right)^n$ & $\left(\frac{m+1}{\sqrt{m^2 + m + 1}}\right)^n$ & $FS > EI > KJ$ \\ \hline
+		Конфигурация Кокса $\left((2^{m-1})_m\right)$  & $\geq 3^n$ & $\left(\frac{2^{m-1}}{m(m-1)}\right)^n$ & $\left(\frac{m}{\sqrt{2^{m-1}}}\right)^n$ & $FS > KJ > EI$ \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Из таблицы видно, что метод трудного множества всегда работает лучше, чем остальные. В данном случае 
+точная оценка по методу трудного множества может превосходить величину $3^n$ на некоторых графах, в 
+результате мы не можем доказать, что метод Куликова-Юкны работает всегда хуже. Но зато величины $3^n$ 
+достаточно для метода энтропийных неравенств, а значит можно сформулировать следующее утверждение:
+
+\begin{mclaim}
+    Для произвольной геометрической конфигурации $(p_{\gamma}, l_{\pi})$ оценка, получаемая по методу 
+    трудного множества, превосходит оценку метода энтропийных неравенств. Иначе говоря 
+    $$3(2) \geq \frac{\gamma}{\sqrt{l}}$$
+\end{mclaim}
+
+\begin{msolution}
+	Условия 
+	\begin{equation*}
+	    \begin{cases}
+			p\cdot \gamma = l\cdot \pi, \\
+			p \geq \gamma\cdot (\pi - 1) + 1.
+		\end{cases}
+	\end{equation*}
+	должны обязательно выполняться для того, чтобы геометрическая конфигурация была корректно определена.
+	
+	Используя эти ограничения получаем $$\frac{\gamma^2}{l} = \frac{\pi\cdot\gamma}{p} \leq \frac{p + 
+	\gamma - 1}{p} = 1 + \frac{\gamma - 1}{p} < 4$$
+	
+	Что и требовалось доказать $\square$.
+\end{msolution}
+
+Теперь давайте сравним метод Куликова-Юкны и метод энтропийных неравенств. Рассмотрим два случая:
+\begin{itemize}
+    \item Пусть выполняется условие $l \geq \gamma^2$, тогда $$\gamma^2 \cdot (\pi - 1) \leq l \cdot (\pi - 1) 
+    < p\cdot\gamma \leq p\cdot\sqrt{l}$$ То есть получаем, что $KJ > EI$.
+    \item Пусть теперь верно $l \leq \gamma^2$, тогда $$\gamma^2\cdot (\pi - 1) \geq l\cdot(\pi - 1) = 
+    p\cdot\gamma - l \geq p\cdot\sqrt{l} - l$$ Поделив обе части на $\sqrt{l}\cdot\gamma\cdot(\pi -1)$ 
+    получаем $$\frac{\gamma}{\sqrt{l}} \geq \frac{p}{\gamma\cdot(\pi - 1)} - \frac{\sqrt{l}}{\gamma\cdot(\pi-1)}$$
+	В итоге получаем, что с некоторой небольшой точностью $EI \gtrsim KJ$
+\end{itemize}
+
+
+\addtocounter{section}{1}
+\section*{Трудное множество vs Куликов-Юкна}
+\addcontentsline{toc}{section}{Трудное множество vs Куликов-Юкна}
+В данном разделе мы докажем, что метод трудного множества всегда дает оценку лучше, чем метод Куликова-Юкны.
+Также рассмотрим вопрос о величине разницы в получаемых оценках: всегда ли она невелика; или может быть, 
+что для некоторых графов оценки из этих методов будут отличаться очень сильно. 
+
+\setcounter{subsection}{0}
+\subsection{Теорема Турановского типа}
+Как уже видно из названия для дальнейших изысканий нам потребуется классическая теорема Турана:
+\begin{mtheorem}
+    Пусть имеется неориентированный граф $G = (V, E)$, где $|V| = n$ и число независимости равно $\alpha$. 
+    Тогда в графе выполняется следующая оценка $$|E| \geq n\cdot\left[\frac{n}{\alpha}\right] - 
+    \alpha\cdot\frac{\left[\frac{n}{\alpha}\right]\cdot\left(\left[\frac{n}{\alpha}\right] + 1\right)}{2}$$
+\end{mtheorem}
+
+Доказательство этой теоремы можно найти в книге $\cite{OreOustin}$. Используя эту теорему мы можем с легкостью 
+доказать следующее:
+\begin{mtheorem}
+    Пусть имеется неориентированный граф $G = (V, E)$, тогда среди ребер максимального паросочетания можно 
+    найти трудное множество размера $$\left\lceil\frac{v(G)^2}{|E|}\right\rceil$$
+\end{mtheorem}
+
+\begin{msolution}
+    Давайте вместо графа $G = (V, E)$ рассмотрим граф $\widetilde{G} = (\widetilde{V}, \widetilde{E})$, 
+    в котором останутся только вершины из максимального паросочетания. Так как $|E| \geq |\widetilde{E}|$, то
+    достаточно найти трудное множество размера $$\left\lceil\frac{v(G)^2}{|\widetilde{E}|}\right\rceil$$
+    Пусть $(v_1, v'_1),\ (v_2, v'_2),\ \ldots,\ (v_m, v'_m)$ -- ребра максимального паросочетания. 
+    Построим граф $\widehat{G} = (\widehat{V}, \widehat{E})$ такой, что вершин в нем ровно $m$. 
+    Обозначим вершины $\{\widehat{v}_1,\ \widehat{v}_2,\ \ldots,\ \widehat{v}_m\}$, причем 
+    $\widehat{v}_i \leftrightarrow (v_i, v'_i)$. Определим множество ребер $\widehat{E}$ следующим образом 
+    $$(\widehat{v}_i, \widehat{v}_j)\in \widehat{E} \hbox{ если } (v_i, v'_i)\notin \widetilde{E} 
+    \hbox{ или } (v_j, v'_j)\notin \widetilde{E}$$ Очевидно, что трудное множество на ребрах максимального 
+    паросочетания соответствует клике в $\widehat{G}$ такого же размера. Пусть число независимости 
+    дополнения графа $\widehat{G}$ равно $\alpha$, тогда мы можем предъявить трудное множество размера 
+    $\alpha$. Используя теорему Турана для дополнения графа $\widehat{G}$ получаем $$|\overline{\widehat{E}}| \geq 
+    m\cdot\left[\frac{m}{\alpha}\right] - \alpha\cdot\frac{\left[\frac{m}{\alpha}\right]\cdot\left(
+    \left[\frac{m}{\alpha}\right] + 1\right)}{2} = $$ Пусть $m = k\cdot \alpha + r$, где $r < \alpha$ 
+    $$ = (k\cdot\alpha + r)\cdot k - \alpha\cdot\frac{k\cdot(k+1)}{2} = \frac{\alpha\cdot k^2}{2} + 
+    r\cdot k - \frac{\alpha\cdot k}{2}$$ Так как каждое ребро из дополнения графа $\widehat{G}$ порождает 
+    два ребра в $\widetilde{G}$, а также еще имеется $m$ ребер самого паросочетания, то получаем 
+    $$|\widetilde{E}| \geq m + 2\cdot\left(\frac{\alpha\cdot k^2}{2} + r\cdot k - \frac{\alpha\cdot k}{2}\right) = $$
+    $$ = \alpha\cdot k^2 + 2r\cdot k + r \geq \alpha\cdot k^2 + 2r\cdot k + \left\lceil\frac{r^2}{\alpha}\right\rceil = 
+    \left\lceil\frac{m^2}{\alpha}\right\rceil$$ В итоге получили, что $$|\widetilde{E}|\geq 
+    \left\lceil\frac{m^2}{\alpha}\right\rceil \Longleftrightarrow \alpha \geq \left\lceil\frac{m^2}{|\widetilde{E}|}\right\rceil = 
+    \left\lceil\frac{v(G)^2}{|\widetilde{E}|}\right\rceil \blacksquare$$
+\end{msolution}
+
+
+
+
+
+
+
 
 
 \addcontentsline{toc}{section}{Список литературы}
