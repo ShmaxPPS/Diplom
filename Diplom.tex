@@ -257,7 +257,8 @@ $(x, y) \in X\times Y$ имеет цвет $z \in Z$, если $f(x, y) = z$.
 \begin{mdefinition}
 	Пусть $G = (V, E)$ произвольный неориентированный граф. Будем называть подмножество ребер 
 	$S \subseteq E$ трудным, если для любых двух различных ребер $(x, y)\in S$ и $(x', y')\in S$ 
-	имеем $(x, y') \notin E$ или $(x', y) \notin E$.
+	имеем $(x, y') \notin E$ или $(x', y) \notin E$. Обозначение $fool(G)$ - размер максимального по 
+	мощности трудного множества.
 \end{mdefinition}
 
 \begin{mremark}
@@ -281,28 +282,16 @@ $(x, y) \in X\times Y$ имеет цвет $z \in Z$, если $f(x, y) = z$.
 
 \begin{mremark}
     На практике нахождение максимального по мощности трудного множества применяют редко, потому что 
-    эта задача является $PSPACE$-полной \cite{HermannMarkus}. Часто рассматривают "нечестный"\ метод, 
-    а именно доказывают, что определенного размера трудное множество обязательно найдется.
+    эта задача является $PSPACE$-полной \cite{HermannMarkus}. 
 \end{mremark}
-
-\begin{mtheorem}
-    Для произвольного неориентированного графа $G = (V, E)$ обозначим за $v(G)$ - размер максимального 
-    паросочетания, а за $cl(G)$ такое максимальное число $r$, что в нашем графе содержится биклика 
-    $K_{r,r}$. Тогда среди ребер этого паросочетания можно найти трудное множество размера 
-    $\Big\lceil\frac{v(G)}{cl(G)}\Big\rceil$. 
-\end{mtheorem}
-
-На самом деле намного проще доказать, что $bcc(G) \geq \Big\lceil\frac{v(G)}{cl(G)}\Big\rceil$ 
-без участия трудного множества. Этот факт сразу следует из того, что любая биклика $K_{r, s}$ 
-содержит как максимум $min\{r, s\}$ ребер максимального паросочетания. Сама теорема будет доказана 
-в одной из последующих глав.
 
 \subsection{Метод Куликова-Юкны}
 Следующий метод был впервые описан в статье \cite{KulikovJukna} и работает он для произвольного 
 неориентированного графа.
 
 \begin{mtheorem}
-    Для произвольного неориентированного графа $G = (V, E)$ верно: $$bcc(G)\geq \bigg\lceil\frac{v(G)^2}{|E|}\bigg\rceil$$
+    Для произвольного неориентированного графа $G = (V, E)$ верно: $$bcc(G)\geq \left\lceil\frac{v(G)^2}{|E|}\right\rceil$$ 
+    где $v(G)$ -- размер максимального паросочетания графа $G$.
 \end{mtheorem}
 
 \begin{msolution}
@@ -323,19 +312,24 @@ $(x, y) \in X\times Y$ имеет цвет $z \in Z$, если $f(x, y) = z$.
 	$\blacksquare$
 \end{msolution}
 
-На некоторых графах данная оценка превосходит $\Big\lceil\frac{v(G)}{cl(G)}\Big\rceil$, 
-а на некоторых уступает:
+В этой же статье \cite{KulikovJukna} этот метод сравнивался с классическим: пусть $bcl(G) = \max\limits_{K_{r,r}\subseteq G}\{r\}$, 
+тогда $bcc(G) \geq \left\lceil\frac{v(G)}{bcl(G)}\right\rceil$. Классическая оценка сразу следует из 
+того, что любая биклика $K_{r, s}$ содержит как максимум $min\{r, s\}$ ребер максимального паросочетания.
+
+Приведем примеры графов на которых метод Куликова-Юкны работает намного лучше, чем классическая и наоборот:
+
 \begin{itemize}
     \item пусть двудольный граф $G = (L, R, E)$ состоит из совершенного паросочетания размера 
     $n = |L| = |R|$ и еще некоторого константного числа непересекающихся биклик $K_{r,r}$. 
-    К тому же, пусть $r = \Theta(\sqrt{n})$, тогда $$\frac{v(G)^2}{|E|} = \frac{n^2}{cr^2 + n} = 
-    \Theta(n) \gtrsim \Theta(\sqrt{n}) = \frac{n}{r} = \frac{v(G)}{cl(G)}$$ 
+    К тому же, пусть $r = \Theta(\sqrt{n})$, тогда $$\left\lceil\frac{v(G)^2}{|E|}\right\rceil = 
+    \left\lceil\frac{n^2}{cr^2 + n}\right\rceil = \Theta(n) \gg \Theta(\sqrt{n}) = \left\lceil\frac{n}{r}\right\rceil = 
+    \left\lceil\frac{v(G)}{bcl(G)}\right\rceil$$ 
     \item рассмотрим двудольный граф Леви, построенный при помощи конечной проективной плоскости порядка 
     $p\in \mathbb{P}$. В каждой доле этого графа содержится $n = p^2 + p + 1$ вершин, причем степень 
     каждой $p+1$. Этот граф не содержит $K_{2,2}$ (любые две прямые пересекаются максимум в одной точке). 
     А так как в регулярных двудольных графах обязательно найдется совершенное паросочетание, то 
-    $$\frac{v(G)^2}{|E|} = \frac{(p^2 + p + 1)^2}{(p^2+p+1)(p+1)} = \Theta(\sqrt{n}) \lesssim 
-    \Theta(n) = \frac{p^2 + p + 1}{1} = \frac{v(G)}{cl(G)}$$
+    $$\left\lceil\frac{v(G)^2}{|E|}\right\rceil = \left\lceil\frac{(p^2 + p + 1)^2}{(p^2+p+1)(p+1)}\right\rceil = 
+    \Theta(\sqrt{n}) \ll$$ $$\ll \Theta(n) = \left\lceil\frac{p^2 + p + 1}{1}\right\rceil = \left\lceil\frac{v(G)}{bcl(G)}\right\rceil$$
 \end{itemize}
 
 
@@ -594,6 +588,88 @@ $\gamma = \pi$) будем обозначать сокращенно $(p_{\gamma
 Мы доказали, что на любом неориентированном графе точная оченка по методу трудного множества лучше, 
 чем оценка Куликова-Юкны.
 
+\subsection{Конструкция прямоугольного графа}
+
+В доказательстве предыдущей теоремы мы использовали некоторый модифицированный граф $\widetilde{G} = 
+(\widetilde{V}, \widetilde{E})$. Оказывается можно рассмотреть более общую конструкцию. Такие графы 
+мы будем называть прямоугольными графами.
+\begin{mdefinition}
+    Пусть имеется двудольный неориентированный граф $G = (L, R, E)$. Определим прямоугольный граф 
+    $\widetilde{G} = (\widetilde{V}, \widetilde{E})$ следующим образом:
+    \begin{itemize}
+        \item $e_{i,j}\in E \leftrightarrow v_{i,j}\in \widetilde{V}$, значит $|E| = |\widetilde{V}|$.
+        \item $(v_{i,j}, v_{k, l}) \in \widetilde{E}$ тогда и только тогда, когда $v_{i,l}\notin \widetilde{E}$ 
+        или $v_{k,j}\notin\widetilde{E}$
+    \end{itemize}
+\end{mdefinition}
+
+Введем также понятия хроматического, кликового и антикликового чисел:
+\begin{mdefinition}
+
+    Хроматическое число графа $G$ -- минимальное число $k$, такое что множество вершин графа можно 
+    покрасить в $k$ цветов, причем любое ребро графа соединяет разноцветные вершины. Обозначение $\chi(G)$.
+\end{mdefinition}
+\begin{mdefinition} 
+    Кликовое число графа $G$ -- максимальное число $k$, такое что в нашем графе содержится полный 
+    граф на $k$ вершинах ($k$-клика). Обозначение $w(G)$.
+\end{mdefinition}
+\begin{mdefinition} 
+    Антикликовое число графа $G$ -- максимальное число $k$, такое что в графе дополнения содержится 
+    полный граф на $k$ вершинах ($k$-антиклика). Обозначение $\alpha(G)$.
+\end{mdefinition}
+
+
+Используя конструкцию прямоугольного графа, мы можем сформулировать следующую теорему:
+\begin{mtheorem}
+    Для любого двудольного графа $G = (L, R, E)$ верно:
+    \begin{itemize}
+        \item[1)] $fool(G) = w(\widetilde{G})$
+        \item[2)] $\max\limits_{K_{r,s}\subseteq G}\{r\cdot s\} = \alpha(\widetilde{G})$
+        \item[3)] $bcc(G) = \chi(\widetilde{G})$
+    \end{itemize}
+\end{mtheorem}
+
+\begin{msolution}
+    Так как каждому трудному множеству размера $k$ в $G$ соответствует $k$-клика в $\widetilde{G}$ и 
+    наоборот, то $fool(G) = w(\widetilde{G})$.
+    
+    Очевидно, что биклике $K_{r,s}$ в $G$, соответствует антиклика размера $rs$ в $\widetilde{G}$. 
+    Обратно, если $(v_{i,j}, v_{k,l}) \notin \widetilde{E}$, то вершины $v_{i, l}$ и $v_{k, j}$ 
+    определены и между ними нет ребра. И следовательно, если мы рассмотрим какую-нибудь антиклику в 
+    $\widetilde{G}$ мы ее можем расширить до "прямоугольной"\  антиклики, которой будет соответствовать 
+    биклика в $G$.
+    
+    Последняя часть сразу следует из того, что все вершины антиклики мы можем красить в один цвет. Имея 
+    произвольное покрытие $bcc(G)$, мы получаем покрытие вершин графа $\widetilde{G}$ антикликами. 
+    Пусть каждой биклике из $bcc(G)$ сопоставлен свой цвет. Красим вершину в тот цвет, который соответствует 
+    покрывающей ее биклике (если таких биклик несколько, то в любой йз них). В итоге получаем правильную 
+    раскраску графа в $bcc(G)$ цветов. Обратно, правильная покраска графа $\widetilde{G}$ порождает 
+    покрытие антикликами, которые мы расширяем до "прямоугольных"\  антиклик. В итоге этим, антикликам 
+    соответствуют биклики в $G$, следовательно мы получили покрытие бикликами (возможно пересекающимися) 
+    размера $\chi(\widetilde{G})$. $\blacksquare$
+\end{msolution}
+
+Эта теорема позволяет переформулировать извесные оценки хроматического числа:
+$$ \chi(\widetilde{G}) \geq w(\widetilde{G}) \Longleftrightarrow bcc(G) \geq fool(G)$$
+и $$\chi(\widetilde{G}) \geq \left\lceil\max\limits_{U\subseteq \widetilde{V}}\frac{|U|}{\alpha(\widetilde{G}(U))}\right\rceil 
+\Longleftrightarrow bcc(G) \geq \left\lceil\max\limits_{\mathcal{E}\subseteq E}\frac{|\mathcal{E}|}
+{\max\limits_{K_{r,s}\subseteq G(\mathcal{E})}|K_{r,s}\cap\mathcal{E}|}\right\rceil$$ где $G(\mathcal{E})$ наименьший подграф $G$, 
+содержащий все ребра $\mathcal{E}$. 
+
+Если в качестве $\mathcal{E}$ рассмотреть максимальное паросочетание, тогда $\max\limits_{K_{r,s}\subseteq 
+G(\mathcal{E})}|K_{r,s}\cap\mathcal{E}| = \max\limits_{K_{r,r}\subseteq G(\mathcal{E})}|K_{r,r}\cap\mathcal{E}| = 
+\max\limits_{K_{r,r}\subseteq G(\mathcal{E})}\{r\} \leq \max\limits_{K_{r,r}\subseteq G}\{r\} = bcl(G)$. В итоге 
+получаем оценку, которую мы уже раньше встречали: $$bcc(G) \geq \left\lceil\max\limits_{\mathcal{E}\subseteq E}\frac{|\mathcal{E}|}
+{\max\limits_{K_{r,s}\subseteq G(\mathcal{E})}|K_{r,s}\cap\mathcal{E}|}\right\rceil  \geq \left\lceil\frac{v(G)}{bcl(G)}\right\rceil$$
+
+Если же в качестве $\mathcal{E}$ взять вообще все ребра, то $$bcc(G) \geq \left\lceil\max\limits_{\mathcal{E}\subseteq E}\frac{|\mathcal{E}|}
+{\max\limits_{K_{r,s}\subseteq G(\mathcal{E})}|K_{r,s}\cap\mathcal{E}|}\right\rceil \geq \left\lceil\frac{|E|}{\max\limits_{K_{r,s}\subseteq G}\{r\cdot s\}}\right\rceil$$
+
+
+
+
+
+
 \subsection{Случайные графы Эрдеша-Реньи}
 В этом разделе мы хотим понять насколько различаются оценки из этих двух методов в применении к "типичным"\ и
 "неэкзотичным"\ графам. В качестве уточнения слова "типичности"\ мы рассмотрим случайные граф Эрдеша-Реньи, 
@@ -740,11 +816,66 @@ $$n^{1-\alpha} \gg \ln{n},\ n^{1-\alpha} \gg \ln{n}\cdot n^{\beta},\ n^{1-\alpha
     $n^\alpha$
 \end{mclaim}
 
-К сожалению, мы смогли доказать лишь существование такого графа, но не смогли доказать, что это верно 
+К сожалению, мы смогли показать лишь существование такого графа, но не смогли доказать, что это верно 
 для почти всех графов. Чтобы преодолеть эту трудность нужно исследовать отклонение числа трудных множеств 
 размера $k$.
 
 \subsection{Количество трудных множеств размера $k$}
+
+Вспомним, что за $f_k(G)$ мы обозначили число трудных множеств размера $k$ в графе $G$. Давайте оценим 
+матожидание этой случайной величины $$\mathbb{E}[f_k(G)] = \binom{n}{k}^2\cdot k!\cdot \mathbb{E}[I_k(G)] = 
+\binom{n}{k}^2\cdot k!\cdot p^k(1-p^2)^{\binom{k}{2}}$$
+
+\begin{mlemma}
+    Если $k = o(\sqrt{n})$, то $\binom{n}{k} \sim \frac{n^k}{k!}$, к тому же если $k \rightarrow \infty$ 
+    при $n \rightarrow \infty$, то $\binom{n}{k} \sim n^k k^{-k-\frac{1}{2}}e^k$.
+\end{mlemma}
+
+\begin{msolution}
+    Применим неравенство $\ln(1-x) < -x$ $$\binom{n}{k} = \frac{n^k}{k!}\left(1-\frac{1}{n}\right)
+    \left(1-\frac{2}{n}\right)\cdots\left(1-\frac{k-1}{n}\right) = $$ $$ = \frac{n^k}{k!}e^{\ln\left(1-\frac{1}{n}\right) + 
+    \ln\left(1-\frac{2}{n}\right) + \cdots + \ln\left(1-\frac{k-1}{n}\right)} < \frac{n^k}{k!}e^{-\frac{1}{n} -
+    \frac{2}{n}-\cdots -\frac{k-1}{n}} = $$ $$ = \frac{n^k}{k!}e^{-\frac{k(k-1)}{2n}} = \frac{n^k}{k!}e^{-O\left(\frac{k^2}{n}\right)}$$
+    
+    Если использовать неравенство $\ln(1-x) > -x - \frac{1}{2}x^2$, то получаем $$\binom{n}{k} > 
+    \frac{n^k}{k!}e^{-\frac{1}{n} - \frac{1}{2}\cdot\frac{1^2}{n^2} - \frac{2}{n} - \frac{1}{2}\cdot\frac{2^2}{n^2} - 
+    \cdots - -\frac{1}{n} - \frac{k-1}{2}\cdot\frac{(k-1)^2}{n^2}} = $$ $$ = \frac{n^k}{k!}e^{-\frac{k(k-1)}{2n}-
+    \frac{1}{2n}\sum\limits_{i<k}i^2}  > \frac{n^k}{k!}e^{-\frac{k^2}{2n}-O\left(\frac{k^3}{n^2}\right)}$$
+    
+    В итоге мы получили, что $$\frac{n^k}{k!}e^{-\frac{k^2}{2n}-O\left(\frac{k^3}{n^2}\right)} < \binom{n}{k} < 
+    \frac{n^k}{k!}e^{-O\left(\frac{k^2}{n}\right)}$$ при $k = o(\sqrt{n})$ мы получаем $\binom{n}{k} \sim \frac{n^k}{k!}$
+    Применяя формулу Стирлинга к $k!$ получаем второе утверждение леммы $\square$
+\end{msolution}
+    
+	Эта лемма позволяет найти точный порядок величины $\mathbb{E}[f_k(G)]$ в предположении, что $p = n^\alpha$.
+	$$\mathbb{E}[I_k(G)] = p^k(1-p^2)^{\binom{k}{2}} = n^{-\alpha k}e^{\binom{k}{2}\cdot\ln\left(1-\frac{1}{n^{2\alpha}}\right)} = $$
+	$$ = n^{-\alpha k}e^{-\binom{k}{2}\cdot\frac{1}{n^{2\alpha}} + \binom{k}{2}\cdot\frac{1}{2n^{4\alpha}}+ 
+	O\left(\frac{k^2}{n^{6\alpha}}\right)} = n^{-\alpha k}e^{-\frac{k^2}{2n^{2\alpha}} + \frac{k^2}{4n^{4\alpha}} + 
+	O\left(\frac{k}{n^{2\alpha}}\right)}$$
+	
+	Если предположить, что $k = n^{2\alpha + \varepsilon}$, то $$\mathbb{E}[f_k(G)] \sim n^{2n^{2\alpha + \varepsilon} -
+	(2\alpha + \varepsilon)(n^{2\alpha + \varepsilon} + \frac{1}{2})}\cdot e^{n^{2\alpha + \varepsilon}}\cdot 
+	n^{-\alpha n^{2\alpha+\varepsilon}}\cdot e^{-\frac{1}{2}n^{2\alpha + 2\varepsilon} + O\left(n^{2\varepsilon}\right)} = $$
+	$$ = n^{n^{2\alpha + \varepsilon}(2 - 3\alpha - \varepsilon) - \alpha - \frac{\varepsilon}{2}}\cdot 
+	e^{-\frac{1}{2}n^{2\alpha + 2\varepsilon} + O\left(n^{2\alpha + \varepsilon}\right)}\xrightarrow[n \to +\infty]{} 0$$
+	
+	А если $k = n^{2\alpha - \varepsilon}$, то $$\mathbb{E}[f_k(G)] \sim n^{2n^{2\alpha - \varepsilon} - 
+	(2\alpha - \varepsilon)(n^{2\alpha - \varepsilon} + \frac{1}{2})}\cdot e^{n^{2\alpha - \varepsilon}}\cdot 
+	n^{-\alpha n^{2\alpha-\varepsilon}}\cdot e^{-\frac{1}{2}n^{2\alpha - 2\varepsilon} + O\left(n^{-\varepsilon}\right)} = $$
+	$$ = n^{n^{2\alpha - \varepsilon}(2 - 3\alpha +\varepsilon) - \alpha + \frac{\varepsilon}{2}}\cdot 
+	e^{n^{2\alpha - \varepsilon}+O(n^{2\alpha - 2\varepsilon})}\xrightarrow[n \to +\infty]{} +\infty$$
+
+	В итоге мы доказали следующую теорему:
+	\begin{mtheorem}
+	    Пусть $p = n^{-\alpha}$, тогда 
+	    \begin{itemize}
+	        \item $k = n^{2\alpha - \varepsilon}\ \Longrightarrow\ \mathbb{E}[f_k(G)]\xrightarrow[n \to +\infty]{} +\infty$
+	        \item $k = n^{2\alpha + \varepsilon}\ \Longrightarrow\ \mathbb{E}[f_k(G)]\xrightarrow[n \to +\infty]{} 0$
+	    \end{itemize}
+
+	\end{mtheorem}
+
+
 
 \addcontentsline{toc}{section}{Список литературы}
 \bibliographystyle{utf8gost705u}
