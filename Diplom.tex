@@ -419,7 +419,7 @@ $min\{r, s\}$ ребер максимального паросочетания.
 Для произвольной проективной плоскости $\Gamma$ c параметрами $(p_{\gamma}, l_{\pi})$ найдем какие 
 оценки на $bcc(G_{n,\Gamma})$ дают наши методы:
 
-\begin{itemize}
+\begin{itemize}[noitemsep]
     \item[--] Метод трудного множества:
     \begin{mlemma}
         Если в $\Gamma$ имеется цикл нечетной длины, то в $G_{1, \Gamma}$ можно найти трудное множество 
@@ -539,7 +539,7 @@ $\gamma = \pi$) будем обозначать сокращенно $(p_{\gamma
 \end{msolution}
 
 Теперь давайте сравним метод Куликова-Юкны и метод энтропийных неравенств. Рассмотрим два случая:
-\begin{itemize}
+\begin{itemize}[noitemsep]
     \item Пусть выполняется условие $l \geq \gamma^2$, тогда $$\gamma^2 \cdot (\pi - 1) \leq l \cdot (\pi - 1) 
     < p\cdot\gamma \leq p\cdot\sqrt{l}$$ То есть получаем, что $KJ > EI$.
     \item Пусть теперь верно $l \leq \gamma^2$, тогда $$\gamma^2\cdot (\pi - 1) \geq l\cdot(\pi - 1) = 
@@ -608,7 +608,7 @@ $\gamma = \pi$) будем обозначать сокращенно $(p_{\gamma
 \begin{mdefinition}
     Пусть имеется двудольный неориентированный граф $G = (L, R, E)$. Определим прямоугольный граф 
     $\widetilde{G} = (\widetilde{V}, \widetilde{E})$ следующим образом:
-    \begin{itemize}
+    \begin{itemize}[noitemsep]
         \item $e_{i,j}\in E \leftrightarrow v_{i,j}\in \widetilde{V}$, значит $|E| = |\widetilde{V}|$.
         \item $(v_{i,j}, v_{k, l}) \in \widetilde{E}$ тогда и только тогда, когда $v_{i,l}\notin \widetilde{E}$ 
         или $v_{k,j}\notin\widetilde{E}$
@@ -634,7 +634,7 @@ $\gamma = \pi$) будем обозначать сокращенно $(p_{\gamma
 Используя конструкцию прямоугольного графа, мы можем сформулировать следующую теорему:
 \begin{mtheorem}
     Для любого двудольного графа $G = (L, R, E)$ верно:
-    \begin{itemize}
+    \begin{itemize}[noitemsep]
         \item[1)] $fool(G) = w(\widetilde{G})$
         \item[2)] $\max\limits_{K_{r,s}\subseteq G}\{r\cdot s\} = \alpha(\widetilde{G})$
         \item[3)] $bcc(G) = \chi(\widetilde{G})$
@@ -755,9 +755,10 @@ P\{\mathbb{E}[S_n] - S_n\geq \varepsilon\} \leq $$ $$\leq 2\cdot exp\left(\frac{
 величина $|E| = \sum\limits_{i,j}X_{i,j}$, то получаем $$\mathbb{E}[|E|] = \sum\limits_{i,j}\mathbb{E}[X_{i,j}] = 
 \sum\limits_{i,j}P\{e_{i,j}\in E\} = n^2\cdot p$$
 
-Наконец, воспользуемся неравенством Хефдинга для $\varepsilon = 1$ $$P\{|E| \neq \mathbb{E}[|E|]\} = 
-P\{||E| - \mathbb{E}[|E|]|\geq 1\} \leq 2\cdot e^{-\frac{2}{n^2}}$$ В итоге мы получили, что почти 
-наверное (при $n \rightarrow \infty$) число ребер в графе равно $|E| = n^2\cdot p$.
+Наконец, воспользуемся неравенством Хефдинга для $\varepsilon = n^{1+\delta}$ $$ P\{||E| - \mathbb{E}[|E|]| \geq
+n^{1+\delta}\} \leq 2\cdot e^{-\frac{2n^{2+2\delta}}{n^2}} = 2\cdot e^{-2n^{2\delta}} \xrightarrow[n \to \infty]{} 0 $$ 
+В итоге мы получили, что почти наверное число ребер в графе не сильно отличается от его матожидания: 
+$$n^2\cdot p - n^{1+\delta} \leq |E| \leq n^2\cdot p + n^{1+\delta}$$.
 
 
 \subsection{Размер максимального паросочетания}
@@ -789,13 +790,25 @@ $S \subseteq L$ не удовлетворяет условию теоремы Х
 
 \subsection{Трудное множество и Куликов-Юкна на случайных графах}
 
-Если предположить, что $p = p(n) = n^{-\alpha}$ ($\alpha < 1$), то можно сделать вывод, что оценка 
-Куликова-Юкны почти наверное (при $n \rightarrow \infty$) равна $$\left\lceil\frac{v(G)^2}{|E|}\right\rceil = 
-\left\lceil\frac{n^2}{n^2p}\right\rceil = \left\lceil n^{\alpha}\right\rceil$$ причем $$P\left\{\left\lceil\frac{v(G)^2}{|E|}\right\rceil \neq 
-\left\lceil n^{\alpha}\right\rceil\right\} \leq P\{|E| \neq \mathbb{E}[|E|]\} + P\{v(G) \neq n\} \leq $$
-$$ \leq 2\cdot e^{-\frac{2}{n^2}} + \sum\limits_{k=1}^{(n+1)/2}\left(n^2e^{-\frac{1}{2}n^{1-\alpha} + 
-O(n^{1-2\alpha})}\right)^k \xrightarrow[n \to \infty]{} 0$$
-  
+Если предположить, что $p = p(n) = n^{-\alpha}$ ($\alpha < 1$), то можно доказать следующее утверждение:
+\begin{mclaim}
+	Для некоторого $\delta > 0$ верно:
+    $$n^{\alpha} - O(n^{\delta - 1}) \leq \frac{v(G)^2}{|E|} \leq n^{\alpha} + O(n^{\delta - 1})$$
+\end{mclaim}
+
+\begin{msolution}
+   Так как $\alpha < 1$, то можно взять такое $\delta > 0$, что $\alpha + \delta < 1$. Тогда вероятность 
+   $$P\left\{\frac{n^2}{n^{2-\alpha} + n^{1+\delta}} \leq \frac{v(G)^2}{|E|} \leq \frac{n^2}{n^{2-\alpha} - n^{1+\delta}} \right\}
+    \geq $$ $$ \geq 1 - P\left\{v(G) \neq n\right\} - P\left\{||E| - n^{2-\alpha}| \geq
+n^{1+\delta}\right\} \xrightarrow[n \to \infty]{} 1$$
+
+В параграфах 4.4 и 4.5 мы доказали, что соответствующие вероятности стремятся к 0 при $n \to \infty$, 
+поэтому итоговая вероятность стремится к 1. Поделив числители и знаменатели на $n^{2-\alpha}$, получаем 
+$$\frac{n^{\alpha}}{1 + n^{\alpha + \delta - 1}} \leq \frac{v(G)^2}{|E|} \leq \frac{n^{\alpha}}{1 - n^{\alpha + \delta - 1}}$$
+а так как $\alpha + \delta < 1$, то можно применить разложение в ряд Тейлора
+$$n^{\alpha}\left(1 - O(n^{\alpha + \delta - 1})\right) \leq \frac{v(G)^2}{|E|} \leq n^{\alpha}\left(1 + O(n^{\alpha + \delta - 1})\right)\ \square$$
+\end{msolution}
+
 Теперь посчитаем вероятность того, что в случайном графе найдется трудное множество размера $k$. 
 Обозначим $f_k(G)$ - число различных трудных множеств размера $k$ в графе $G$. Нас интересует 
 вероятность $P\{|f_k(G)| > 0\}$, которая превосходит вероятность того, что фиксированные $k$ пар 
@@ -805,15 +818,15 @@ O(n^{1-2\alpha})}\right)^k \xrightarrow[n \to \infty]{} 0$$
 n^{-\alpha k}e^{\binom{k}{2}\cdot(-n^{-2\alpha} + O(n^{-4\alpha}))} = n^{-\alpha n^{\beta}} 
 e^{-\frac{1}{2}n^{2\beta-2\alpha} + \frac{1}{2}n^{\beta - 2\alpha} + O(n^{2\beta - 4\alpha})}$$
 
-Заметим, что если мы докажем, что при $n \rightarrow \infty$ $$P\{|f_k(G)| > 0\} > P\left\{\left\lceil\frac{v(G)^2}{|E|}\right\rceil \neq 
-\left\lceil n^{\alpha}\right\rceil\right\}$$ то получим, что существует граф, у которого имеется трудное множество 
-размера $n^\beta$ и оценка Куликова-Юкны равна $n^{\alpha}$. Чтобы это было верно, достаточно показать, что 
+Заметим, что если мы докажем, что при $n \rightarrow \infty$ $$P\{|f_k(G)| > 0\} > P\left\{v(G) \neq n\right\} + P\left\{||E| - n^{2-\alpha}| \geq
+n^{1+\delta}\right\}$$ то получим, что существует граф, у которого имеется трудное множество 
+размера $n^\beta$ и оценка Куликова-Юкны не превосходит $n^{\alpha} + O(n^{\delta-1})$. Чтобы это было верно, достаточно показать, что 
 $$n^{-\alpha n^{\beta}} e^{-\frac{1}{2}n^{2\beta-2\alpha} + \frac{1}{2}n^{\beta - 2\alpha} + O(n^{2\beta - 4\alpha})} > 
-2\cdot e^{-\frac{2}{n^2}} + \sum\limits_{i=1}^{(n+1)/2}\left(n^2e^{-\frac{1}{2}n^{1-\alpha} + O(n^{1-2\alpha})}\right)^i$$
+2\cdot e^{-2n^{2\delta}} + \sum\limits_{i=1}^{(n+1)/2}\left(n^2e^{-\frac{1}{2}n^{1-\alpha} + O(n^{1-2\alpha})}\right)^i$$
 
 Сравним левую часть с каждым слагаемым из правой части по отдельности:\ \\
-1) Если $2 > \beta > \alpha$ и $2 > 2\beta - 2\alpha$, то $$-\alpha\cdot \ln{n}\cdot n^{\beta} - 
-\frac{1}{2}\cdot n^{2\beta - 2\alpha} \gg -2\ln{2}\cdot n^{-2}$$\ \\
+1) Если $2\delta > \beta > \alpha$ и $2\delta > 2\beta - 2\alpha$, то $$-\alpha\cdot \ln{n}\cdot n^{\beta} - 
+\frac{1}{2}\cdot n^{2\beta - 2\alpha} \gg -2\ln{2}\cdot n^{2\delta}$$\ \\
 2) Поделим левую часть на $n$ и сравним с первым членом суммы, заранее прологарифмировав. При 
 $1-\alpha > \beta > \alpha$ и $1+\alpha > 2\beta$ верно $$-\alpha\cdot \ln{n}\cdot n^{\beta} - 1 -
 \frac{1}{2}\cdot n^{2\beta - 2\alpha} \gg 2\ln{n} - \frac{1}{2}n^{1-\alpha}$$ что верно, так как 
@@ -821,11 +834,23 @@ $$n^{1-\alpha} \gg \ln{n},\ n^{1-\alpha} \gg \ln{n}\cdot n^{\beta},\ n^{1-\alpha
 
 В итоге получаем такое утверждение 
 \begin{mclaim}
-    Если выполняется условие $\min\left\{\frac{1 + \alpha}{2},1-\alpha\right\} > \beta > \alpha$, тогда 
+    Если выполняется условие $\min\left\{\frac{1+\alpha}{2},1-\alpha\right\} > \beta > \alpha$, тогда 
     существует двудольный граф $G = (L, R, E)\ (|L| = |R| = n)$, в котором метод трудного множества 
-    дает оценку $n^\beta$, а метод Куликова-Юкны --
-    $n^\alpha$
+    дает оценку $n^\beta$, а оценка по методу Куликова-Юкны не превосходит $n^\alpha + O(n^{-1/2})$
 \end{mclaim}
+\begin{msolution}
+    Так как $1-\alpha > \beta > \alpha$, поэтому $1/2 > \alpha$, а значит можно взять $\delta = 1/2$. 
+    В этом случае все требуемые неравенства выполняются:
+    \begin{itemize}[noitemsep]
+        \item $\delta + \alpha = 1/2 + \alpha < 1/2 + 1/2 = 1$
+        \item $2\delta = 1 > 1 - \alpha > \beta > \alpha$
+        \item $\delta + \alpha = 1/2 + \alpha > 1/2 + \alpha/2 > \beta$
+    \end{itemize}
+    а значит существует граф, у которого метод трудного множества дает оценку $n^{\beta}$, 
+    а оценка по методу Куликова-Юкны не превосходит $n^\alpha + O(n^{\delta - 1}) = n^\alpha + O(n^{-1/2})$. $\square$
+
+\end{msolution}
+
 
 К сожалению, мы смогли показать лишь существование такого графа, но не смогли доказать, что это верно 
 для почти всех графов. Чтобы преодолеть эту трудность, нужно исследовать отклонение числа трудных множеств 
@@ -879,14 +904,20 @@ $$n^{1-\alpha} \gg \ln{n},\ n^{1-\alpha} \gg \ln{n}\cdot n^{\beta},\ n^{1-\alpha
 	В итоге мы доказали следующую теорему:
 	\begin{mtheorem}
 	    Пусть $p = n^{-\alpha}$, тогда 
-	    \begin{itemize}
+	    \begin{itemize}[noitemsep]
 	        \item $k = n^{2\alpha - \varepsilon}\ \Longrightarrow\ \mathbb{E}[f_k(G)]\xrightarrow[n \to +\infty]{} +\infty$
 	        \item $k = n^{2\alpha + \varepsilon}\ \Longrightarrow\ \mathbb{E}[f_k(G)]\xrightarrow[n \to +\infty]{} 0$
 	    \end{itemize}
-
 	\end{mtheorem}
 
+\addtocounter{section}{1}
+\section*{Обобщение методов оценивания}
+\addcontentsline{toc}{section}{Обобщение методов оценивания}
+В данном разделе мы попробуем обобщить методы трудного множества и энтропийных неравенств для $m$-мерного 
+коммуникационного протокола. 
 
+\setcounter{subsection}{0}
+\subsection{$m$-мерный коммуникационный протокол}
 
 \addcontentsline{toc}{section}{Список литературы}
 \bibliographystyle{utf8gost705u}
