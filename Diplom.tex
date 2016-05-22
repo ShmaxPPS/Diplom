@@ -21,6 +21,10 @@
 \makeatletter
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
 
+\newenvironment{rcases}
+  {\left.\begin{aligned}}
+  {\end{aligned}\right\rbrace}
+
 \newtheorem*{mproblem}{Условие}
 \newtheorem*{mclaim}{Утверждение}
 \newtheorem*{mremark}{Замечание}
@@ -857,7 +861,6 @@ $$n^{1-\alpha} \gg \ln{n},\ n^{1-\alpha} \gg \ln{n}\cdot n^{\beta},\ n^{1-\alpha
     а значит существует граф, у которого метод трудного множества дает оценку $n^{\beta}$, 
     а оценка по методу Куликова-Юкны не превосходит $n^\alpha + O(n^{2\alpha + \delta - 1}) = 
     n^\alpha + O(n^{2\alpha + \varepsilon - 1/2}) = n^{\alpha} + o(n^{\alpha})$. $\square$
-
 \end{msolution}
 
 
@@ -1033,13 +1036,86 @@ $$p(a,b) = P\{A=a, B=b\},\ p(a|b) = P\{A=a | B=b\}$$
 \begin{mlemma}
     Для произвольных случайных величин $X_1, X_2,\ldots, X_m$ и $F, G$ выполняется неравенство:
     $$H(F|X_1,G) + H(F|X_1,G) + \ldots + H(F|X_m,G) \leq (m-1)H(F|G) + \Delta$$ где 
-    $$\Delta = \log_2\left(\sum\limits_{p(f,x_i,g) > 0}\frac{p(x_1,g)\cdot\ldots\cdot p(x_m,g)}{p(g)^{m-1}}\right)$$
+    $$\Delta = \log_2\left(\sum\limits_{\substack{(f,x_1,\ldots,x_m,g) \\ \forall i:\ p(f,x_i,g)>0}}\frac{p(x_1,g)\cdot\ldots\cdot p(x_m,g)}{p(g)^{m-1}}\right)$$
 \end{mlemma}
 
-\begin{msolution}
-    Рассмотрим сумму $$H(F|X_1,G) + H(F|X_1,G) + \ldots + H(F|X_m,G) - (m-1)H(F|G) = $$ 
-    $$ = \sum\limits_{f,x_1,\ldots,x_m,g}p(f,x_1,\ldots,x_m,g)\cdot\log_2\left(\frac{p(f|g)^{m-1}}{p(f|x_1,g)\cdot\ldots\cdot p(f|x_m,g)}\right)$$
+\begin{msolution} 
+	Рассмотрим распределение
+    \begin{equation*}
+		p'(f,x_1,\ldots, x_m, g) = 
+        \begin{cases}
+            \frac{p(f,x_1,g)\cdot\ldots\cdot p(f,x_m,g)}{p(f,g)^{m-1}} & если $p(f,g) > 0$,\\
+            0 & иначе.
+        \end{cases}
+    \end{equation*}
+    Если $p(f, g) = 0$, то $p(f, x_i, g) = p'(f,x_i, g) = 0$. А если $p(f, g) \neq 0$, то $$p'(f,x_i,g) = 
+    \sum\limits_{(x_1,\ldots, x_{i-1}, x_{i+1}, \ldots x_m)}\frac{p(f,x_1,g)\cdot\ldots\cdot p(f,x_m,g)}{p(f,g)^{m-1}} = $$
+    $$ = \left(\sum\limits_{x_1}\frac{p(f,x_1,g)}{p(f,g)}\right)\cdot\ldots\cdot\left(\sum\limits_{x_{i-1}}\frac{p(f,x_{i-1},g)}{p(f,g)}\right)
+    \cdot p(f,x_i,g)\cdot $$ $$\cdot\left(\sum\limits_{x_{i+1}}\frac{p(f,x_{i+1},g)}{p(f,g)}\right)\cdot\ldots\cdot
+    \left(\sum\limits_{x_m}\frac{p(f,x_m,g)}{p(f,g)}\right) = p(f,x_i,g)$$
+    В итоге мы получили, что для любого натурального $i \in \{1,\ldots, m\}$ выполняется $p'(f,x_i,g) = p(f,x_i, g)$, 
+    а значит и $p'(f,g) = p(f,g)$. Но тогда сумма $$H(F|X_1,G) + H(F|X_1,G) + \ldots + H(F|X_m,G) - (m-1)H(F|G) = $$ 
+    $$ = \sum\limits_{(f,x_1,\ldots,x_m,g)}p(f,x_1,\ldots,x_m,g)\cdot\log_2\left(\frac{p(f|g)^{m-1}}{p(f|x_1,g)\cdot\ldots\cdot p(f|x_m,g)}\right) = $$
+    $$ = (m-1)\cdot\sum\limits_{(f,g)}p(f,g)\log_2\frac{p(f,g)}{p(g)} + \sum\limits_{i = 1}^m\sum\limits_{(f,x_i,g)}p(f,x_i,g)\log_2\frac{p(f,x_i,g)}{p(f,g)} = $$
+    $$ = (m-1)\cdot\sum\limits_{(f,g)}p'(f,g)\log_2\frac{p(f,g)}{p(g)} + \sum\limits_{i = 1}^m\sum\limits_{(f,x_i,g)}p'(f,x_i,g)\log_2\frac{p(f,x_i,g)}{p(f,g)} = $$
+	$$ = \sum\limits_{(f,x_1,\ldots,x_m,g)}p'(f,x_1,\ldots,x_m,g)\cdot\log_2\left(\frac{p(f|g)^{m-1}}{p(f|x_1,g)\cdot\ldots\cdot p(f|x_m,g)}\right) \leq $$
+	Далее мы применяем неравенство Йенсена: $$\alpha_1\log_2\beta_1 + \cdots + \alpha_k\log_2\beta_k \leq \log_2(\alpha_1\beta_1+\ldots+\alpha_k\beta_k)$$
+	и получаем $$\leq \log_2\left(\sum\limits_{\substack{(f,x_1,\ldots,x_m,g) \\ p'(f,x_1,\ldots,x_m,g)>0}}\frac{p(x_1,g)\cdot\ldots\cdot p(x_m,g)}{p(g)^{m-1}}\right) = $$
+	$$ = \log_2\left(\sum\limits_{\substack{(f,x_1,\ldots,x_m,g) \\ \forall i:\ p(f,x_i,g)>0}}\frac{p(x_1,g)\cdot\ldots\cdot p(x_m,g)}{p(g)^{m-1}}\right)$$
+	Лемма доказана. $\square$
 \end{msolution}
+
+\begin{mdefinition}
+    Будем говорить, что случайные величины $X_1, \ldots, X_m$ и $F$ удовлетворяют условию регулярности (R), 
+    если для любого набора $(f,f',x_1, \ldots, x_m)$ верно:
+    \begin{equation*}
+        \begin{cases}
+            p(f, x_1) > 0,\ \ldots,\ p(f, x_m)>0\\
+            p(f', x_1) > 0,\ \ldots,\ p(f', x_m)>0
+        \end{cases}
+        \Longrightarrow f = f'
+    \end{equation*} 
+\end{mdefinition}
+
+\begin{mclaim}
+    Если $F$ -- детерминированная функция от $X_1, \ldots X_m$ (п.н.) и $X_1, X_2,\ldots, X_m$ 
+    независимы в совокупности относительно $F$, тогда выполняется условию регулярности (R).
+\end{mclaim}
+
+\begin{msolution}
+    Пусть условие регулярности (R) не выполняется, значит существуют $f, f', x_1, \ldots, x_m$ такие, что
+    \begin{equation*}
+        \begin{cases}
+            p(f, x_1) > 0,\ \ldots,\ p(f, x_m)>0\\
+            p(f', x_1) > 0,\ \ldots,\ p(f', x_m)>0
+        \end{cases}
+        \hbox{ и } f \neq f'
+    \end{equation*} 
+    Так как $p(f, x_1) > 0$ и $p(f', x_1)>0$, то $p(f) > 0$ и $p(f') > 0$. Но тогда используя независимость 
+    случайных величин, мы получаем $$p(x_1, \ldots, x_m | f) = p(x_1|f)\cdot\ldots\cdot p(x_m|f) \Longrightarrow $$
+    $$\Longrightarrow p(f)^{m-1}\cdot p(f,x_1,\ldots,x_m) = p(f, x_1)\cdot\ldots\cdot p(f,x_m)>0$$
+    То есть получаем, что $p(f, x_1,\ldots,x_m)>0$. Аналогично доказываем, что $p(f', x_1,\ldots,x_m)>0$.
+    В итоге приходим к противоречию с тем, что $F$ -- детерминированная функция от $X_1, \ldots X_m$ (п.н.).$\square$
+\end{msolution}
+
+Посмотрим какие значения может принимать $\Delta$, если выполняется условие регулярности (R). В $\Delta$ 
+суммирование ведется по таким наборам $(f, x_1, \ldots, x_m, g)$, что $\forall i:\ p(f,x_i,g)>0$, а 
+значит и $\forall i:\ p(f,x_i)>0$. В данном случае условие регулярности говорит нам о том, что
+не существует двух различных наборов $(f, x_1, \ldots, x_m, g)$ и $(f', x_1, \ldots, x_m, g)$, дающих 
+ненулевой вклад в суммирование, а значит $$\Delta = \log_2\left(\sum\limits_{\substack{(f,x_1,\ldots,x_m,g) 
+\\ \forall i:\ p(f,x_i,g)>0}}\frac{p(x_1,g)\cdot\ldots\cdot p(x_m,g)}{p(g)^{m-1}}\right) = $$ 
+$$ = \log_2\left(\sum\limits_{\substack{(x_1,\ldots,x_m,g) \\ \forall i:\ p(x_i,g)>0}}\frac{p(x_1,g)\cdot\ldots\cdot p(x_m,g)}{p(g)^{m-1}}\right) = $$
+$$ = \log_2\left(\sum\limits_{g:\ p(g) > 0}p(g)\cdot\left(\sum\limits_{x_1:\ p(x_1, g) > 0}\frac{p(x_1,g)}{p(g)}\right)\cdot\ldots
+\cdot\left(\sum\limits_{x_m:\ p(x_m, g) > 0}\frac{p(x_m,g)}{p(g)}\right)\right) = $$ 
+$$ = \log_2\left(\sum\limits_{g:\ p(g) > 0}p(g)\right) = \log_21 = 0$$ А значит мы доказали следующую теорему:
+\begin{mtheorem}
+    Если случайные величины $X_1, X_2, \ldots, X_m$ и $F$ удовлетворяют условию регулярности, тогда 
+    $$H(F|X_1, G) + H(F|X_2, G) + \ldots + H(F|X_m, G) \leq (m-1)\cdot H(F|G)$$
+\end{mtheorem}
+
+
+
+
 
 
 
