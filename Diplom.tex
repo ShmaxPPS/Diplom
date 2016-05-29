@@ -25,14 +25,17 @@
   {\left.\begin{aligned}}
   {\end{aligned}\right\rbrace}
 
+  
 \newtheorem*{mproblem}{Условие}
-\newtheorem*{mclaim}{Утверждение}
 \newtheorem*{mremark}{Замечание}
 \newtheorem*{mdefinition}{Определение}
-\newtheorem*{mlemma}{Лемма}
-\newtheorem*{mtheorem}{Теорема}
+\newtheorem{mtheorem}{Теорема}[section]
 \newtheorem*{msolution}{Доказательство}
 \newtheorem*{mexample}{Пример}
+\newtheorem{mlemma}{Лемма}[section]
+\newtheorem{mclaim}{Утверждение}[section]
+
+
 
 \begin{document}
 \begin{titlepage}
@@ -87,7 +90,9 @@
  
 \newpage
 
-
+\setcounter{mclaim}{0}
+\setcounter{mlemma}{0}
+\setcounter{mtheorem}{0}
 \setcounter{section}{0}
 \section*{Введение}
 \addcontentsline{toc}{section}{Введение}
@@ -238,7 +243,9 @@ $(x, y) \in X\times Y$ имеет цвет $z \in Z$, если $f(x, y) = z$.
 напрямую мы не можем использовать эту оценку. В следующей главе я рассмотрю несколько методов, 
 позволяющих для произвольного двудольного графа оценивать снизу величину $bcc(G)$.
 
-
+\setcounter{mclaim}{0}
+\setcounter{mlemma}{0}
+\setcounter{mtheorem}{0}
 \addtocounter{section}{1}
 \section*{Оценивание $bcc(G)$}
 \addcontentsline{toc}{section}{Оценивание $bcc(G)$}
@@ -384,7 +391,9 @@ $min\{r, s\}$ ребер максимального паросочетания.
     получаем нижнюю оценку $bcc(G_{n,k})\geq 2^k$.
 \end{mexample}
 
-
+\setcounter{mclaim}{0}
+\setcounter{mlemma}{0}
+\setcounter{mtheorem}{0}
 \addtocounter{section}{1}
 \section*{Геометрические конфигурации}
 \addcontentsline{toc}{section}{Геометрические конфигурации}
@@ -562,7 +571,9 @@ $\gamma = \pi$) будем обозначать сокращенно $(p_{\gamma
 	В итоге получаем, что с небольшой погрешностью $EI \gtrsim KJ$
 \end{itemize}
 
-
+\setcounter{mclaim}{0}
+\setcounter{mlemma}{0}
+\setcounter{mtheorem}{0}
 \addtocounter{section}{1}
 \section*{Теорема Турана и граф четырехсторонников}
 \addcontentsline{toc}{section}{Теорема Турана и граф четырехсторонников}
@@ -573,7 +584,7 @@ $\gamma = \pi$) будем обозначать сокращенно $(p_{\gamma
 \setcounter{subsection}{0}
 \subsection{Теорема Турана и ее следствие}
 Как уже видно из названия, для дальнейших изысканий нам потребуется классическая теорема Турана:
-\begin{mtheorem}[Туран]
+\begin{mtheorem}\emph{\textbf{(Туран)}}
     Пусть дан неориентированный граф $G = (V, E)$, где $|V| = n$ и число независимости равно $\alpha$. 
     Тогда в графе выполняется следующая оценка $$|E| \geq n\cdot\left[\frac{n}{\alpha}\right] - 
     \alpha\cdot\frac{\left[\frac{n}{\alpha}\right]\cdot\left(\left[\frac{n}{\alpha}\right] + 1\right)}{2}$$
@@ -693,13 +704,15 @@ G(\mathcal{E})}|K_{r,s}\cap\mathcal{E}| = \max\limits_{K_{r,r}\subseteq G(\mathc
 {\max\limits_{K_{r,s}\subseteq G(\mathcal{E})}|K_{r,s}\cap\mathcal{E}|}\right\rceil \geq \left\lceil\frac{|E|}
 {\max\limits_{K_{r,s}\subseteq G}\{r\cdot s\}}\right\rceil$$
 
-
+\setcounter{mclaim}{0}
+\setcounter{mlemma}{0}
+\setcounter{mtheorem}{0}
 \addtocounter{section}{1}
 \section*{Случайные графы}
 \addcontentsline{toc}{section}{Случайные графы}
-В этом разделе мы хотим понять насколько различаются оценки из этих двух методов в применении к "типичным"\ и
-"неэкзотичным"\ графам. В качестве уточнения слова "типичности"\ мы рассмотрим случайные двудольные графы Эрдеша-Реньи 
-при разумном выборе параметров. 
+В этом разделе мы докажем существование двудольных графов, у которых оценки по методы трудного множества и 
+по методу Куликова-Юкны очень сильно отличаются. Доказывать этот факт мы будем вероятностным методом, 
+причем будем использовать модель Эрдеша-Реньи.
 
 \setcounter{subsection}{0}
 \subsection{Случайные двудольные графы Эрдеша-Реньи}
@@ -741,7 +754,7 @@ $$ = \frac{\mathbb{E}[e^{\lambda\sum\limits_{i=1}^n(\xi_i - \mathbb{E}[\xi_i])}]
 результат дает нам такие оценки в тех случаях, когда случайные величины $\xi_i$ принимают значения 
 из ограниченных интервалов.
 
-\begin{mlemma}[Хефдинг]
+\begin{mlemma}\emph{\textbf{(Хефдинг)}}
     Для произвольной случайной величины $\xi$ такой, что $\mathbb{E}[\xi] = 0$ и $\xi \in [a, b]$ с вероятностью 1 
     для любого $\lambda > 0$ справедливо $$\mathbb{E}[e^{\lambda\xi}] \leq e^{\frac{\lambda^2(b-a)^2}{8}}$$
 \end{mlemma}
@@ -755,7 +768,7 @@ $$P\{S_n - \mathbb{E}[S_n] \geq \varepsilon\} \leq \frac{\prod\limits_{i=1}^n\ma
 
 Остается минимизировать правую часть по $\lambda \geq 0$. Выбирая $$\lambda = \frac{4\varepsilon}{\sum\limits_{i=1}^n(b_i-a_i)^2}$$ 
 мы получаем следующий результат 
-\begin{mtheorem}[Неравенство Хефдинга]
+\begin{mtheorem}\emph{\textbf{(Неравенство Хефдинга)}}
     Пусть $\xi_1,\ \xi_2,\ \dots,\ \xi_n$ -- последовательность независимых случайных величин, таких что 
 для любого $i = 1,\ 2,\ \ldots,\ n$ верно $\xi_i \in [a_i, b_i]$ с вероятностью 1 для некоторых 
 $a_i, b_i \in \mathbb{R}$. Тогда для любого $\varepsilon > 0$ верно $$P\{S_n - \mathbb{E}[S_n]\geq 
@@ -781,7 +794,7 @@ $$n^2\cdot p - n^{1+\delta} \leq |E| \leq n^2\cdot p + n^{1+\delta}$$.
 \subsection{Размер максимального паросочетания}
 
 Для изучения отклонения величины максимального паросочетания нам потребуется теорема Холла.
-\begin{mtheorem}[{Холл}]
+\begin{mtheorem}\emph{\textbf{(Холл)}}
     Пусть имеется неориентированный двудольный граф $G = (L, R, E)$. Для произвольного $A \subseteq L$ 
     определим множество соседей  $$N(A) = \{y\in R\ |\ (x, y) \in E,\ x\in A\}$$ В двудольном графе существует 
     совершенное паросочетание тогда и только тогда, когда для любого $A \subseteq L$ выполнено $|A| \leq |N(A)|$.
@@ -828,14 +841,14 @@ $$n^{\alpha}\left(1 - O(n^{\alpha + \delta - 1})\right) \leq \frac{v(G)^2}{|E|} 
 
 Теперь посчитаем вероятность того, что в случайном графе найдется трудное множество размера $k$. 
 Обозначим $f_k(G)$ - число различных трудных множеств размера $k$ в графе $G$. Нас интересует 
-вероятность $P\{|f_k(G)| > 0\}$, которая превосходит вероятность того, что фиксированные $k$ пар 
-вершин образуют трудное множество. Иначе говоря $$P\{|f_k(G)| > 0\} \geq p^k\left(1-p^2\right)^{\binom{k}{2}}$$
+вероятность $P\{f_k(G) > 0\}$, которая превосходит вероятность того, что фиксированные $k$ пар 
+вершин образуют трудное множество. Иначе говоря $$P\{f_k(G) > 0\} \geq p^k\left(1-p^2\right)^{\binom{k}{2}}$$
 
-Предположим теперь, что $p = p(n) = n^{-\alpha}$ ($0 < \alpha < 1$) и величина $k = k(n) = n^{\beta}$ ($0 < \beta < 2$), тогда $$P\{|f_k(G)| > 0\} \geq 
+Предположим теперь, что $p = p(n) = n^{-\alpha}$ ($0 < \alpha < 1$) и величина $k = k(n) = n^{\beta}$ ($0 < \beta < 2$), тогда $$P\{f_k(G) > 0\} \geq 
 n^{-\alpha k}e^{\binom{k}{2}\cdot(-n^{-2\alpha} + O(n^{-4\alpha}))} = n^{-\alpha n^{\beta}} 
 e^{-\frac{1}{2}n^{2\beta-2\alpha} + \frac{1}{2}n^{\beta - 2\alpha} + O(n^{2\beta - 4\alpha})}$$
 
-К тому же, если $0 < \delta < 1 - \alpha$ и мы докажем, что при $n \rightarrow \infty$ $$P\{|f_k(G)| > 0\} > P\left\{v(G) \neq n\right\} + P\left\{||E| - n^{2-\alpha}| \geq
+К тому же, если $0 < \delta < 1 - \alpha$ и мы докажем, что при $n \rightarrow \infty$ $$P\{f_k(G) > 0\} > P\left\{v(G) \neq n\right\} + P\left\{||E| - n^{2-\alpha}| \geq
 n^{1+\delta}\right\}$$ то получим, что существует граф, у которого имеется трудное множество 
 размера $n^\beta$ и оценка Куликова-Юкны не превосходит $n^{\alpha} + O(n^{2\alpha + \delta-1})$. Чтобы это было верно, достаточно показать, что 
 $$n^{-\alpha n^{\beta}} e^{-\frac{1}{2}n^{2\beta-2\alpha} + \frac{1}{2}n^{\beta - 2\alpha} + O(n^{2\beta - 4\alpha})} > 
@@ -849,23 +862,52 @@ $1-\alpha > \beta > \alpha$ и $1+\alpha > 2\beta$ верно $$-\alpha\cdot \ln
 \frac{1}{2}\cdot n^{2\beta - 2\alpha} \gg 2\ln{n} - \frac{1}{2}n^{1-\alpha}$$ что верно, так как 
 $$n^{1-\alpha} \gg \ln{n},\ n^{1-\alpha} \gg \ln{n}\cdot n^{\beta},\ n^{1-\alpha} \gg n^{2\beta - 2\alpha}$$
 
-В итоге получаем такое утверждение 
-\begin{mclaim}
-    Если выполняется условие $\min\left\{\frac{1+\alpha}{2},1-\alpha\right\} > \beta > \alpha$, тогда 
-    существует двудольный граф $G = (L, R, E)\ (|L| = |R| = n)$, в котором метод трудного множества 
-    дает оценку $n^\beta$, а оценка по методу Куликова-Юкны не превосходит $n^\alpha + o(n^{\alpha})$.
-\end{mclaim}
+\begin{mexample}
+    Если взять $\alpha = 0.05$, $\beta = 0.5$ и $\delta = 0.5$, тогда все требуемые неравенства выпоняются.
+    А значит существует двудольный граф, на котором метод трудного множества дает оценку хотя бы $n^{0.5}$, а  
+    оценка Куликова-Юкны не превосходит $n^{0.05} + O(n^{-0.4})$.
+\end{mexample}
+
+
+Ограничение, которое накладываются только на $\alpha$ и $\beta$ имеет вид $\min\left\{\frac{1+\alpha}{2},
+1-\alpha\right\} > \beta > \alpha$, а значит $\alpha \in [0,\ \frac{1}{2})$. Далее рассмотрим два случая:
+
+1) Пусть $0 \leq \alpha < \frac{1}{3}$, тогда $\frac{1+\alpha}{2} < 1 - \alpha$. А значит 
+можно доказать следующую теорему:
+\begin{mtheorem}
+	Для произвольных $\alpha \in [0,\ \frac{1}{3})$ и $\beta \in (\alpha,\ \frac{1+\alpha}{2})$ существует 
+	двудольный граф $G = (L, R, E)$ $(|L| = |R| = n)$, на котором метод трудного множества 
+	дает оценку хотя бы $n^\beta$, а оценка Куликова-Юкны не превосходит $n^\alpha + o(1)$.
+\end{mtheorem}
 \begin{msolution}
-    Так как $1-\alpha > \beta > \alpha$, поэтому $1/2 > \alpha$, а значит можно взять $\delta = 1/2 +
-    \varepsilon$, где $0 < \varepsilon < 1/2 - \alpha$. В этом случае все требуемые неравенства выполняются:
-    \begin{itemize}[noitemsep]
-        \item $\delta + \alpha = 1/2 + \varepsilon + \alpha < 1/2 + 1/2 - \alpha + \alpha = 1$
-        \item $2\delta = 1 + 2\varepsilon > 1 - \alpha > \beta > \alpha$
-        \item $\delta + \alpha = 1/2 + \varepsilon + \alpha > 1/2 + \alpha/2 > \beta$
-    \end{itemize}
-    а значит существует граф, у которого метод трудного множества дает оценку $n^{\beta}$, 
-    а оценка по методу Куликова-Юкны не превосходит $n^\alpha + O(n^{2\alpha + \delta - 1}) = 
-    n^\alpha + O(n^{2\alpha + \varepsilon - 1/2}) = n^{\alpha} + o(n^{\alpha})$. $\square$
+	Пусть $\delta = \frac{1-\alpha}{2}$, тогда все неравенства, в которых участвует $\delta$, выполняются:
+	\begin{itemize}[noitemsep]
+		\item $\delta + \alpha = \frac{1-\alpha}{2} + \alpha = \frac{1+\alpha}{2} < 1$
+		\item $2\delta = 1 - \alpha > \frac{1+\alpha}{2} > \beta > \alpha$
+		\item $\delta = \frac{1-\alpha}{2} = \frac{1+\alpha}{2} - \alpha > \beta - \alpha$
+	\end{itemize}
+	а значит существует граф, у которого метод трудного множества дает оценку $n^{\beta}$, 
+	а оценка по методу Куликова-Юкны не превосходит $n^\alpha + O(n^{2\alpha + \delta - 1}) = 
+	n^\alpha + O(n^{2\alpha + \frac{1-\alpha}{2} - 1}) = n^{\alpha} + O(n^{\frac{3\alpha - 1}{2}}) = n^{\alpha} + o(1)$. $\blacksquare$
+\end{msolution}
+
+2) Пусть $\frac{1}{3} \leq \alpha < \frac{1}{2}$, тогда $\frac{1+\alpha}{2} \geq 1 - \alpha$. А значит 
+можно доказать следующую теорему:
+\begin{mtheorem}
+	Для произвольных $\alpha \in [\frac{1}{3},\ \frac{1}{2})$ и $\beta \in (\alpha,\ 1-\alpha)$ существует 
+	двудольный граф $G = (L, R, E)$ $(|L| = |R| = n)$, на котором метод трудного множества 
+	дает оценку хотя бы $n^\beta$, а оценка Куликова-Юкны не превосходит $n^\alpha + o(n^{\frac{\alpha}{2}})$.
+\end{mtheorem}
+\begin{msolution}
+	Пусть $\delta = \frac{1- \alpha}{2}$, тогда все неравенства, в которых участвует $\delta$, выполняются:
+	\begin{itemize}[noitemsep]
+		\item $\delta + \alpha = \frac{1 - \alpha}{2} + \alpha = \frac{1 + \alpha}{2} < 1$
+		\item $2\delta = 1 - \alpha > \beta > \alpha$
+		\item $\delta = \frac{1 - \alpha}{2} = \frac{1 + \alpha}{2} - \alpha > (1-\alpha) - \alpha > \beta - \alpha$
+	\end{itemize}
+	а значит существует граф, у которого метод трудного множества дает оценку $n^{\beta}$, 
+	а оценка по методу Куликова-Юкны не превосходит $n^\alpha + O(n^{2\alpha + \delta - 1}) = 
+	n^\alpha + O(n^{2\alpha + \frac{1-\alpha}{2} - 1}) = n^{\alpha} + o(n^{\frac{\alpha}{2}})$. $\blacksquare$
 \end{msolution}
 
 
@@ -900,33 +942,87 @@ $$n^{1-\alpha} \gg \ln{n},\ n^{1-\alpha} \gg \ln{n}\cdot n^{\beta},\ n^{1-\alpha
     Применяя формулу Стирлинга к $k!$, получаем второе утверждение леммы. $\square$
 \end{msolution}
     
-	Эта лемма позволяет найти точный порядок величины $\mathbb{E}[f_k(G)]$ в предположении, что $p = n^\alpha$.
-	$$\mathbb{E}[I_k(G)] = p^k(1-p^2)^{\binom{k}{2}} = n^{-\alpha k}e^{\binom{k}{2}\cdot\ln\left(1-\frac{1}{n^{2\alpha}}\right)} = $$
-	$$ = n^{-\alpha k}e^{-\binom{k}{2}\cdot\frac{1}{n^{2\alpha}} + \binom{k}{2}\cdot\frac{1}{2n^{4\alpha}}+ 
-	O\left(\frac{k^2}{n^{6\alpha}}\right)} = n^{-\alpha k}e^{-\frac{k^2}{2n^{2\alpha}} + \frac{k^2}{4n^{4\alpha}} + 
-	O\left(\frac{k}{n^{2\alpha}}\right)}$$
-	
-	Если предположить, что $k = n^{2\alpha + \varepsilon}$, то $$\mathbb{E}[f_k(G)] \sim n^{2n^{2\alpha + \varepsilon} -
-	(2\alpha + \varepsilon)(n^{2\alpha + \varepsilon} + \frac{1}{2})}\cdot e^{n^{2\alpha + \varepsilon}}\cdot 
-	n^{-\alpha n^{2\alpha+\varepsilon}}\cdot e^{-\frac{1}{2}n^{2\alpha + 2\varepsilon} + O\left(n^{2\varepsilon}\right)} = $$
-	$$ = n^{n^{2\alpha + \varepsilon}(2 - 3\alpha - \varepsilon) - \alpha - \frac{\varepsilon}{2}}\cdot 
-	e^{-\frac{1}{2}n^{2\alpha + 2\varepsilon} + O\left(n^{2\alpha + \varepsilon}\right)}\xrightarrow[n \to +\infty]{} 0$$
-	
-	А если $k = n^{2\alpha - \varepsilon}$, то $$\mathbb{E}[f_k(G)] \sim n^{2n^{2\alpha - \varepsilon} - 
-	(2\alpha - \varepsilon)(n^{2\alpha - \varepsilon} + \frac{1}{2})}\cdot e^{n^{2\alpha - \varepsilon}}\cdot 
-	n^{-\alpha n^{2\alpha-\varepsilon}}\cdot e^{-\frac{1}{2}n^{2\alpha - 2\varepsilon} + O\left(n^{-\varepsilon}\right)} = $$
-	$$ = n^{n^{2\alpha - \varepsilon}(2 - 3\alpha +\varepsilon) - \alpha + \frac{\varepsilon}{2}}\cdot 
-	e^{n^{2\alpha - \varepsilon}+O(n^{2\alpha - 2\varepsilon})}\xrightarrow[n \to +\infty]{} +\infty$$
+Эта лемма позволяет найти точный порядок величины $\mathbb{E}[f_k(G)]$ в предположении, что $p = n^\alpha$.
+$$\mathbb{E}[I_k(G)] = p^k(1-p^2)^{\binom{k}{2}} = n^{-\alpha k}e^{\binom{k}{2}\cdot\ln\left(1-\frac{1}{n^{2\alpha}}\right)} = $$
+$$ = n^{-\alpha k}e^{-\binom{k}{2}\cdot\frac{1}{n^{2\alpha}} + \binom{k}{2}\cdot\frac{1}{2n^{4\alpha}}+ 
+O\left(\frac{k^2}{n^{6\alpha}}\right)} = n^{-\alpha k}e^{-\frac{k^2}{2n^{2\alpha}} + \frac{k^2}{4n^{4\alpha}} + 
+O\left(\frac{k}{n^{2\alpha}}\right)}$$
 
-	В итоге мы доказали следующую теорему:
-	\begin{mtheorem}
-	    Пусть $p = n^{-\alpha}$, тогда 
-	    \begin{itemize}[noitemsep]
-	        \item $k = n^{2\alpha - \varepsilon}\ \Longrightarrow\ \mathbb{E}[f_k(G)]\xrightarrow[n \to +\infty]{} +\infty$
-	        \item $k = n^{2\alpha + \varepsilon}\ \Longrightarrow\ \mathbb{E}[f_k(G)]\xrightarrow[n \to +\infty]{} 0$
-	    \end{itemize}
-	\end{mtheorem}
+Если предположить, что $k = n^{2\alpha + \varepsilon}$, то $$\mathbb{E}[f_k(G)] \sim n^{2n^{2\alpha + \varepsilon} -
+(2\alpha + \varepsilon)(n^{2\alpha + \varepsilon} + \frac{1}{2})}\cdot e^{n^{2\alpha + \varepsilon}}\cdot 
+n^{-\alpha n^{2\alpha+\varepsilon}}\cdot e^{-\frac{1}{2}n^{2\alpha + 2\varepsilon} + O\left(n^{2\varepsilon}\right)} = $$
+$$ = n^{n^{2\alpha + \varepsilon}(2 - 3\alpha - \varepsilon) - \alpha - \frac{\varepsilon}{2}}\cdot 
+e^{-\frac{1}{2}n^{2\alpha + 2\varepsilon} + O\left(n^{2\alpha + \varepsilon}\right)}\xrightarrow[n \to +\infty]{} 0$$
 
+А если $k = n^{2\alpha - \varepsilon}$, то $$\mathbb{E}[f_k(G)] \sim n^{2n^{2\alpha - \varepsilon} - 
+(2\alpha - \varepsilon)(n^{2\alpha - \varepsilon} + \frac{1}{2})}\cdot e^{n^{2\alpha - \varepsilon}}\cdot 
+n^{-\alpha n^{2\alpha-\varepsilon}}\cdot e^{-\frac{1}{2}n^{2\alpha - 2\varepsilon} + O\left(n^{-\varepsilon}\right)} = $$
+$$ = n^{n^{2\alpha - \varepsilon}(2 - 3\alpha +\varepsilon) - \alpha + \frac{\varepsilon}{2}}\cdot 
+e^{n^{2\alpha - \varepsilon}+O(n^{2\alpha - 2\varepsilon})}\xrightarrow[n \to +\infty]{} +\infty$$
+
+В итоге мы доказали следующую теорему:
+\begin{mtheorem}
+	Пусть $p = n^{-\alpha}$, тогда 
+	\begin{itemize}[noitemsep]
+		\item $k = n^{2\alpha - \varepsilon}$ и $2\alpha - \varepsilon < \frac{1}{2}$ $\Longrightarrow\ \mathbb{E}[f_k(G)]\xrightarrow[n \to +\infty]{} +\infty$
+		\item $k = n^{2\alpha + \varepsilon}$ и $2\alpha + \varepsilon < \frac{1}{2}$  $\Longrightarrow\ \mathbb{E}[f_k(G)]\xrightarrow[n \to +\infty]{} 0$
+	\end{itemize}
+\end{mtheorem}
+Используя теорему при $k = n^{2\alpha + \varepsilon}$ и неравенство Маркова мы получаем
+$$P\{f_k(G) > 0\} = P\{f_k(G) \geq 1\} \leq \mathbb{E}[f_k(G)]\xrightarrow[n \to +\infty]{} 0$$
+Иначе говоря, размер максимального трудного множества почти наверное меньше $ k = n^{2\alpha + \varepsilon}$.
+Обратно, для того чтобы доказать, что мы почти наверное найдем трудное множество размера 
+$k = n^{2\alpha - \varepsilon}$ рассматривают неравенство Чебышева: $$P\{f_k(G) = 0\} \leq P\{|f_k(G) - 
+\mathbb{E}[f_k(G)]|\geq \mathbb{E}[f_k(G)]\} \leq \frac{\mathbb{D}[f_k(G)]}{\mathbb{E}[f_k(G)]^2}\xrightarrow[n \to +\infty]{} 0$$
+
+Для того, чтобы доказать сходимость к 0 обычно рассматривают индикаторные случайные величины: 
+\begin{equation*}
+    I_k(S) = 
+    \begin{cases}
+        1, & если $S$ - образует трудное множество;\\
+        0, & если $S$ - не образует трудное множество.
+    \end{cases}
+\end{equation*}
+где $S$ -- фиксированные $k$-пар вершин. Далее используя $f_k(G) = \sum\limits_{S}I_k(S)$, получают
+$$\mathbb{D}[f_k(G)] = \mathbb{D}[\sum\limits_{S}I_k(S)] = \sum\limits_{S}\mathbb{D}[I_k(S)] + \sum\limits_{S \neq T} cov(I_k(S), I_k(T))$$ 
+Далее мы будем писать $S \sim T$, если $I_k(S)$ и $I_k(T)$ зависимы, то есть $S \neq T$ и эти два множества 
+имеют хотя бы одной совпадающей вершине из каждой доли. $$\mathbb{D}[f_k(G)] = \sum\limits_{S}\mathbb{D}[I_k(S)] +
+\sum\limits_{S \sim T} cov(I_k(S), I_k(T)) \leq $$ $$\leq \sum\limits_{S}\mathbb{E}[I_k(S)^2] +
+\sum\limits_{S \sim T} \mathbb{E}[I_k(S)\cdot I_k(T)] = $$ $$ = \sum\limits_{S}\mathbb{E}[I_k(S)] +
+\sum\limits_{S \sim T} \mathbb{E}[I_k(S)\cdot I_k(T)] = $$ $$ = \mathbb{E}[f_k(G)] + \sum\limits_{S \sim T} \mathbb{E}[I_k(S)\cdot I_k(T)]$$ 
+В цепочке равенств мы использовали $I_k(S) = I_k(S)^2$ и в итоге получили $$\frac{\mathbb{D}[f_k(G)]}
+{\mathbb{E}[f_k(G)]^2} \leq \frac{1}{\mathbb{E}[f_k(G)]} + \frac{1}{\mathbb{E}[f_k(G)]^2}\cdot \sum\limits_{S \sim T}\mathbb{E}[I_k(S)\cdot I_k(T)]$$ 
+а так как $\mathbb{E}[f_k(G)]\xrightarrow[n \to +\infty]{} +\infty$, то достаточно показать 
+$$\sum\limits_{S \sim T}\mathbb{E}[I_k(S)\cdot I_k(T)] = o(\mathbb{E}[f_k(G)]^2)$$ На самом деле используя тот факт, 
+что все множества $S$ симметричны друг относительно друга, можно показать $$\sum\limits_{S \sim T}
+\mathbb{E}[I_k(S)\cdot I_k(T)] = \sum\limits_{S \sim T}P\{I_k(S) = 1\wedge I_k(T) = 1\} = $$ $$ = 
+\sum\limits_{S \sim T}P\{I_k(S) = 1\}\cdot P\{I_k(T) = 1\ |\ I_k(S) = 1\} = $$ $$ = \sum\limits_{S}\left(P\{I_k(S)= 1\} 
+\sum\limits_{T:T\sim S}P\{I_k(T) = 1\ |\ I_k(S) = 1\}\right) = $$ $$ = \sum\limits_{T:T\sim S_0}P\{I_k(T) = 1\ 
+|\ I_k(S_0) = 1\}\sum\limits_{S}P\{I_k(S) = 1\} = $$ $$ = \mathbb{E}[f_k(G)]\sum\limits_{T:T\sim S_0}P\{I_k(T) = 1\ 
+|\ I_k(S_0) = 1\}$$ А значит мы получили $$\frac{\mathbb{D}[f_k(G)]}{\mathbb{E}[f_k(G)]^2} \leq 
+\frac{1}{\mathbb{E}[f_k(G)]} + \frac{1}{\mathbb{E}[f_k(G)]}\cdot \sum\limits_{T:T\sim S_0}P\{I_k(T) = 1\ 
+|\ I_k(S_0) = 1\}$$ а так как $\mathbb{E}[f_k(G)]\xrightarrow[n \to +\infty]{} +\infty$, то достаточно показать 
+\[\sum\limits_{T:T\sim S_0}P\{I_k(T) = 1\ |\ I_k(S_0) = 1\} = o(\mathbb{E}[f_k(G)])  \tag{***}\] 
+
+К сожалению, для $fool(G)$ данное утверждение не столь тривиально, как, например, для кликового числа $w(G)$. И если бы 
+мы смогли показать это, то было бы верно
+\begin{mclaim}
+    Пусть $\alpha \leq \frac{1}{4}$ и $\varepsilon > 0$, тогда почти наверное 
+    метод трудного множества дает оценку хотя бы $n^{2\alpha - \varepsilon}$, а оценка Куликова-Юкны в 
+    точности равна $n^{\alpha}$. 
+\end{mclaim}
+\begin{msolution}
+    Так как $\alpha \leq \frac{1}{4}$, то $k = n^{2\alpha - \varepsilon} = o(\sqrt{n})$. Следовательно из 
+    теоремы 5.5 и выполнимости условия (***) мы получаем $$P\{f_k(G) > 0\} = 1 - P\{f_k(G) = 0\}\xrightarrow[n \to +\infty]{} 1$$
+    Оценка Куликова-Юкны следует из утверждения 5.1 при $\delta = \frac{1}{2}$:
+    $$n^{\alpha} - o(1) \leq \frac{v(G)^2}{|E|} \leq n^{\alpha} + o(1)\ \square$$ 
+\end{msolution}
+
+
+
+\setcounter{mclaim}{0}
+\setcounter{mlemma}{0}	
+\setcounter{mtheorem}{0}
 \addtocounter{section}{1}
 \section*{Обобщение методов оценивания}
 \addcontentsline{toc}{section}{Обобщение методов оценивания}
