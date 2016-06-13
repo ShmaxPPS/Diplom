@@ -1,0 +1,198 @@
+\documentclass[utf8]{beamer}
+\usepackage [utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage[T2A]{fontenc}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{array}
+\usepackage{lipsum}
+
+\newsavebox{\lonbeamergestsec}
+
+\usetheme{Madrid}
+\useoutertheme{tree}
+
+\newtheorem{mdefinition}{Определение}[section]
+\newtheorem{mproblem}{Задача}[subsection]
+\newtheorem{mremark}{Примечание}[subsection]
+\newtheorem{msuggest}{Предложение}[subsection]
+\newtheorem{magree}{Соглашение}[subsection]
+\newtheorem{mclaim}{Утверждение}[subsection]
+\newtheorem{mlemma}{Лемма}[subsection]
+\newtheorem{mtheorem}{Теорема}
+\newtheorem{mconseq}{Следствие}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+
+\title{Сравнительный анализ методов оценивания бикликового покрытия}
+\date{23 июня 2016}
+\author{Попов Максим\ \\ 6 Курс ФИВТ\ \\ Кафедра: Анализ данных}
+
+
+\begin{document}
+
+    \begin{frame}
+		\titlepage
+	\end{frame}
+	
+	\section{Основные результаты}
+	\begin{frame}
+		\frametitle{Основные результаты}
+		\begin{itemize}
+		    \item[1)] Сравнил методы оценивания на графах, построенных при помощи геометрических конфигураций;
+		    \item[2)] Доказал, что метод трудного множества для произвольного графа дает оценки не хуже 
+		    метода Куликова-Юкны;
+		    \item[3)] С помощью метода случайных графов показал, что техника трудного множества может 
+		    давать оценки значительно сильнее, чем метод Куликова-Юкны;
+		    \item[4)] Получил обобщение метода информационных неравенств для задачи коммуникационной 
+		    сложности с $m > 2$ участниками.
+		\end{itemize}
+	\end{frame}
+	
+	\section{Определения и понятия}
+	\begin{frame}
+		\frametitle{Определения и понятия}
+		\begin{mdefinition}
+		    Бикликой неориенторованного графа называется подмножество его вершин, образующих полный 
+		    двудольный подграф.
+		\end{mdefinition}
+		
+		\begin{mdefinition}
+		    Бикликовым покрытием $bcc(G)$ графа $G$ будем называть наименьшее число, возможно, пересекающихся
+		    биклик, которыми можно покрыть все ребра графа $G$.
+		\end{mdefinition}
+	\end{frame}
+	
+	\section{Мотивировка}
+	\begin{frame}
+		\frametitle{Мотивировка}
+		\begin{itemize}
+		    \item[1)] Сам по себе вопрос бикликового покрытия вполне естественен в теории графов и 
+		    играет центральную роль во многих вычислительных задачах.
+		    \item[2)] Бикликовое покрытие играет важную роль в коммуникационной сложности. Для детерминированной 
+		    коммуникационной сложности $CC(f)$ верно $$CC(f) \geq \log_2 \left(\sum\limits_{z\in Z}bcc(G_z)\right)$$ 
+		    Для недетерминированной коммуникационной сложности $NCC(f)$ верно $$\left\lceil\log_2 \left(\sum\limits_{z\in Z}bcc(G_z)\right)\right\rceil + 1 
+		    \geq NCC(f) \geq \log_2 \left(\sum\limits_{z\in Z}bcc(G_z)\right)$$
+		\end{itemize}
+	\end{frame}
+	
+	\section{Методы оценивания}
+	\begin{frame}
+		\frametitle{Метод трудного множества}
+		\begin{mdefinition}
+		    Пусть $G = (V, E)$ произвольный неориентированный граф. Будем называть подмножество ребер 
+		    $S \subseteq E$ трудным, если для любых двух различных ребер $(x, y) \in S$ и $(x', y') \in S$
+		    имеем $(x', y) \notin E$ или $(x, y') \notin E$. Размер максимального трудного множества 
+		    будем обозначать через $fool(G)$. 
+		\end{mdefinition}
+		
+		\begin{mtheorem}
+		    Если $S \subseteq E$ трудное множество графа $G$, то $bcc(G) \geq |S|$. В частности, 
+		    наилучшая оценка по методу трудного множества: $$bcc(G) \geq fool(G).$$  
+		\end{mtheorem}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Метод Куликова-Юкны}
+		Данный метод был описан в статье "Jukna S., Kulikov A. S. On covering graphs by complete 
+		bipartite subgraphs. 2009".
+		
+		\begin{mtheorem}
+		    Для произвольного неориентированного графа $G = (V, E)$ верно: $$bcc(G) \geq \frac{v(G)^2}{|E|},$$ 
+		    где $v(G)$ -- размер максимального паросочетания графа $G$.
+		\end{mtheorem}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Метод информационных неравенств}
+		Данный метод был описан в статье "Kaced T., Romashchenko A.E., Vereshchagin N.K. Conditional 
+		Information Inequalities and Combinatorial Applications. 2015".
+		\begin{mtheorem}
+		    Пусть ребра двудольного графа $G = (L, R, E)$ раскрашены по следующему правилу:
+		    \begin{itemize}
+		        \item[(*)] для произвольной биклики $C \subseteq G$ и для произвольной пары ребер $(x, y')$ и 
+		    $(x', y)$ из $C$ одного цвета $a$, цвет ребра $(x, y)$ тоже $a$.
+		    \end{itemize}
+		    Пусть на ребрах задано произвольное вероятностное распределение. Определим случайные величины $(X,Y,A)$ следующим образом:
+		    \begin{itemize}
+		        \item $X=[\hbox{левый конец ребра}]$; $Y=[\hbox{правый конец ребра}]$;
+		        \item $A=[\hbox{цвет ребра}]$.
+		    \end{itemize}
+			Тогда $bcc(G) \geq 2^ {\frac{1}{2}(H(A|X) + H(A|Y) - H(A))}$. 
+		\end{mtheorem}
+	\end{frame}
+	
+	\section{Выносится на защиту}
+	\begin{frame}
+		\frametitle{Основные теоремы}
+		\begin{mtheorem}
+		    Пусть имеется произвольный неориентированный граф $G = (V, E)$, тогда среди ребер максимального 
+		    паросочетания можно найти трудное множество размера по крайней мере $\frac{v(G)^2}{|E|}$.
+		\end{mtheorem}
+		
+		\begin{mtheorem}
+		    Для произвольных $\alpha \in [0, \frac{1}{3})$ и $\beta \in (\alpha, \frac{1 + \alpha}{2})$ 
+		    при достаточно больших $n$ существует двудольный граф $G = (L, R, E)$ такой, что $|L| = |R| = n$,
+		    на котором метод трудного множества дает оценку хотя бы $n^{\beta}$, а оценка Куликова-Юкны 
+		    не превосходит $n^{\alpha} + o(1)$. 
+		\end{mtheorem}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Обобщение информационного метода}
+		\begin{mtheorem}
+		    Пусть ребра гиперграфа $G = (X_1, X_2, \ldots, X_m, E)$ раскрашены по следующему правилу:
+		    \begin{itemize}
+		        \item[(*)] для произвольного полного $m$-дольного гиперграфа $C \subseteq G$ и для 
+		        произвольного набора ребер $(x_{1,1}, \ldots, x_{1, m}), \ldots, (x_{m,1}, \ldots, x_{m, m})$ 
+		        одного цвета $a$, цвет ребра $(x_{1, 1}, x_{2, 2}, \ldots, x_{m,m})$ тоже $a$. 
+		    \end{itemize}
+		    Пусть на ребрах задано произвольное вероятностное распределение. Определим случайные 
+		    величины $(X_1, \ldots, X_m, A)$ следующим образом:
+		    \begin{itemize}
+		        \item $X_i = [i\hbox{-ая вершина ребра}]$;
+		        \item $A = [\hbox{цвет ребра}]$.
+		    \end{itemize}
+		    Тогда выполняется неравенство: $$bcc(G) \geq 2^{\frac{1}{m}(H(A|X_1) + \ldots + H(A|X_m) - (m-1)H(A))}$$
+		\end{mtheorem}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Используемые теоремы и техники}
+		\begin{itemize}
+		    \item[1)] При доказательстве первой теоремы была придумана конструкция графа четырехсторонников $\widetilde{G}$.
+		    Доказано, что $fool(G) = w(\widetilde{G})$, $\max\limits_{K_{r,s}\subseteq G}\{r\cdot s\} = \alpha(\widetilde{G})$ и 
+		    $bcc(G) = \chi(\widetilde{G})$. Окончательное утверждение теоремы получается применением 
+		    теоремы Турана к графу $\widetilde{G}$.
+		    
+		    \item[2)] Во второй теореме использовались случайные графы Эрдеша-Реньи. При оценивании 
+		    максимального паросочетания использовалась лемма Холла, а при оценивании количества ребер
+		    использовалось неравенство Хефдинга.
+		    
+		    \item[3)] В последней теореме использовалось не Шенноновское информационное неравенство:
+		    $$H(A|X_1, B) + H(A|X_2, B) + \ldots + H(A| X_m, B) \leq (m-1)H(A|B)$$
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Открытые вопросы}
+		\begin{itemize}
+		    \item[1)] Не удалось доказать, что метод трудных множеств работает почти наверное намного 
+		    лучше, чем оценка Куликова-Юкны. А именно не получилось доказать
+		    $$\sum\limits_{T:T\sim S_0}P\{I_k(T) = 1\ |\ I_k(S_0) = 1\} = o(\mathbb{E}[f_k(G)])$$
+		    
+		    \item[2)] Не получилось сравнить в общем случае метод трудных множеств с методом информационных неравенств.
+		\end{itemize}
+	\end{frame}
+	
+	\section{Конец}
+	\begin{frame}
+	    \centering \Large{Спасибо за внимание!}
+	\end{frame}
+	
+\end{document}
